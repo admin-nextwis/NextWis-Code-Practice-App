@@ -1,0 +1,52 @@
+[
+  {
+    "scenario": "Print the message Hello World on the screen.",
+    "starter_code": "",
+    "solution_code": "print(\"Hello World\")"
+  },
+  {
+    "scenario": "Ask the user for their name and then print Hello followed by their name.",
+    "starter_code": "",
+    "solution_code": "name = input(\"Enter your name: \")\nprint(\"Hello \" + name)"
+  },
+  {
+    "scenario": "Print your favourite colour using one print statement.",
+    "starter_code": "",
+    "solution_code": "print(\"My favourite colour is blue\")"
+  },
+  {
+    "scenario": "Ask the user for their favourite number and print it back to them.",
+    "starter_code": "",
+    "solution_code": "num = input(\"Enter your favourite number: \")\nprint(\"Your favourite number is \" + num)"
+  },
+  {
+    "scenario": "Ask the user for their age and print their age on a new line.",
+    "starter_code": "",
+    "solution_code": "age = input(\"Enter your age: \")\nprint(age)"
+  },
+  {
+    "scenario": "Print the numbers 1, 2, 3, 4, 5 each on a separate line using a for loop.",
+    "starter_code": "",
+    "solution_code": "for i in range(1, 6):\n    print(i)"
+  },
+  {
+    "scenario": "Use a while loop to print the numbers from 1 to 3.",
+    "starter_code": "",
+    "solution_code": "n = 1\nwhile n <= 3:\n    print(n)\n    n = n + 1"
+  },
+  {
+    "scenario": "Ask the user for a number and print double that number.",
+    "starter_code": "",
+    "solution_code": "num = int(input(\"Enter a number: \"))\nprint(num * 2)"
+  },
+  {
+    "scenario": "Create a variable called name that stores your name, then print it.",
+    "starter_code": "",
+    "solution_code": "name = \"Alex\"\nprint(name)"
+  },
+  {
+    "scenario": "Ask the user for their city and print I live in plus the city name.",
+    "starter_code": "",
+    "solution_code": "city = input(\"Enter your city: \")\nprint(\"I live in \" + city)"
+  }
+]
