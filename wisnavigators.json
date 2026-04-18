@@ -1,0 +1,52 @@
+[
+  {
+    "scenario": "Ask the user for a number and print whether it is even or odd.",
+    "starter_code": "",
+    "solution_code": "num = int(input(\"Enter a number: \"))\nif num % 2 == 0:\n    print(\"Even\")\nelse:\n    print(\"Odd\")"
+  },
+  {
+    "scenario": "Create a list with the numbers 2, 4, 6 and print the first item.",
+    "starter_code": "",
+    "solution_code": "nums = [2, 4, 6]\nprint(nums[0])"
+  },
+  {
+    "scenario": "Ask the user for a word and print the length of the word.",
+    "starter_code": "",
+    "solution_code": "word = input(\"Enter a word: \")\nprint(len(word))"
+  },
+  {
+    "scenario": "Create a list of three favourite foods and print each one using a for loop.",
+    "starter_code": "",
+    "solution_code": "foods = [\"pizza\", \"pasta\", \"salad\"]\nfor food in foods:\n    print(food)"
+  },
+  {
+    "scenario": "Ask the user for a number and print all numbers from 1 to that number.",
+    "starter_code": "",
+    "solution_code": "n = int(input(\"Enter a number: \"))\nfor i in range(1, n + 1):\n    print(i)"
+  },
+  {
+    "scenario": "Ask the user for a sentence and print it in uppercase.",
+    "starter_code": "",
+    "solution_code": "text = input(\"Enter a sentence: \")\nprint(text.upper())"
+  },
+  {
+    "scenario": "Create a list of three colours then add another colour to the end and print the list.",
+    "starter_code": "",
+    "solution_code": "colours = [\"red\", \"green\", \"blue\"]\ncolours.append(\"yellow\")\nprint(colours)"
+  },
+  {
+    "scenario": "Ask the user for their first name and last name, then print them together on one line.",
+    "starter_code": "",
+    "solution_code": "first = input(\"Enter your first name: \")\nlast = input(\"Enter your last name: \")\nprint(first + \" \" + last)"
+  },
+  {
+    "scenario": "Ask the user for a number and print its square (number multiplied by itself).",
+    "starter_code": "",
+    "solution_code": "num = int(input(\"Enter a number: \"))\nprint(num * num)"
+  },
+  {
+    "scenario": "Create a list of three animals and print how many animals are in the list.",
+    "starter_code": "",
+    "solution_code": "animals = [\"cat\", \"dog\", \"bird\"]\nprint(len(animals))"
+  }
+]
