@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NextWis Digital Skills Education – Scenario Practice</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fb;
+      color: #222;
+    }
+    header {
+      background: #0c4a6e;
+      color: white;
+      padding: 16px 24px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    header p {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .level-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .level-button {
+      border-radius: 12px;
+      border: 1px solid #cbd5f5;
+      padding: 10px 16px;
+      background: #e5edff;
+      cursor: pointer;
+      font-size: 14px;
+      min-width: 150px;
+      text-align: left;
+      transition: background 0.15s, transform 0.05s;
+    }
+    .level-button.active {
+      background: #2563eb;
+      color: white;
+      border-color: #1d4ed8;
+    }
+    .level-button span {
+      display: block;
+    }
+    .level-title {
+      font-weight: 600;
+    }
+    .level-age {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .status-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
+    .status-pill strong {
+      font-weight: 600;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 18px 18px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+
+    .scenario-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    pre.starter-code,
+    pre.solution-code {
+      background: #020617;
+      color: #e5e7eb;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      overflow-x: auto;
+      white-space: pre;
+      margin: 0 0 8px 0;
+    }
+
+    textarea#studentCode {
+      width: 100%;
+      min-height: 160px;
+      resize: vertical;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5f5;
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: 13px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    textarea#studentCode:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px #2563eb33;
+    }
+
+    .buttons-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.12s, transform 0.05s;
+    }
+    button.primary {
+      background: #2563eb;
+      color: white;
+    }
+    button.secondary {
+      background: #e5edff;
+      color: #1f2933;
+    }
+    button:hover {
+      transform: translateY(-1px);
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+      transform: none;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+    .feedback.correct {
+      background: #dcfce7;
+      color: #166534;
+      display: block;
+    }
+    .feedback.incorrect {
+      background: #fee2e2;
+      color: #b91c1c;
+      display: block;
+    }
+    .feedback.info {
+      background: #e0f2fe;
+      color: #075985;
+      display: block;
+    }
+
+    .solution-wrapper {
+      margin-top: 10px;
+      display: none;
+    }
+    .solution-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #374151;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .level-buttons {
+        flex-direction: column;
+      }
+      .status-bar {
+        flex-direction: column;
+      }
+      .card {
+        padding: 16px 14px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NextWis Digital Skills Education</h1>
+    <p>Scenario-based Python code practice with random questions from JSON banks.</p>
+  </header>
+
+  <div class="container">
+    <!-- Level selection -->
+    <div class="level-buttons">
+      <!-- These filenames are in the SAME repo: wistykes.json, wisnavigators.json, wisleaders.json -->
+      <button class="level-button active"
+              data-level="WisTykes"
+              data-file="wistykes.json">
+        <span class="level-title">WisTykes</span>
+        <span class="level-age">Age 8–10 • basics of print, input, loops</span>
+      </button>
+      <button class="level-button"
+              data-level="WisNavigators"
+              data-file="wisnavigators.json">
+        <span class="level-title">WisNavigators</span>
+        <span class="level-age">Age 11–13 • strings, lists, conditions</span>
+      </button>
+      <button class="level-button"
+              data-level="WisLeaders"
+              data-file="wisleaders.json">
+        <span class="level-title">WisLeaders</span>
+        <span class="level-age">Age 14–16 • functions, files, exceptions</span>
+      </button>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-pill">
+        <strong>Level:</strong> <span id="statusLevel">WisTykes</span>
+      </div>
+      <div class="status-pill">
+        <strong>Question:</strong> <span id="statusQuestion">0</span> / <span>10</span>
+      </div>
+      <div class="status-pill">
+        <strong>Score:</strong> <span id="statusScore">0</span> / <span>10</span>
+      </div>
+      <div class="status-pill">
+        <strong>Bank size:</strong> <span id="statusBank">0</span> scenarios
+      </div>
+    </div>
+
+    <!-- Scenario + code card -->
+    <div class="card">
+      <div class="section-title">Scenario (read carefully)</div>
+      <div id="scenarioText" class="scenario-text">
+        Loading scenarios for WisTykes…
+      </div>
+
+      <div id="starterWrapper" style="display:none; margin-bottom:8px;">
+        <div class="section-title" style="margin-bottom:4px;">Starter code (read-only)</div>
+        <pre id="starterCode" class="starter-code"></pre>
+      </div>
+
+      <div class="section-title" style="margin-top:8px;">Your Python code</div>
+      <textarea id="studentCode" placeholder="Type your Python code here…"></textarea>
+
+      <div class="buttons-row">
+        <button id="btnCheck" class="primary">Check Answer</button>
+        <button id="btnShow" class="secondary">Show Answer</button>
+        <button id="btnNext" class="secondary">Next Question</button>
+        <button id="btnNew10" class="secondary">New Random 10</button>
+      </div>
+
+      <div id="feedback" class="feedback info">
+        Type your answer, then click Check Answer.
+      </div>
+
+      <div id="solutionWrapper" class="solution-wrapper">
+        <div class="solution-label">One possible solution</div>
+        <pre id="solutionCode" class="solution-code"></pre>
+      </div>
+
+      <div class="footer-note">
+        Note: The checker compares your code to one reference solution. Other correct solutions may exist—teachers can review alternative answers.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Configuration =====
+    const QUESTIONS_PER_SESSION = 10;
+
+    // State
+    let currentLevel = "WisTykes";
+    let currentFile = "";
+    let fullBank = [];           // all questions for current level
+    let sessionIndices = [];     // indices of 10 questions for current session
+    let sessionPosition = 0;     // 0..9 within sessionIndices
+    let score = 0;
+    let hasAnsweredCurrent = false;
+
+    // DOM elements
+    const levelButtons = Array.from(document.querySelectorAll(".level-button"));
+    const statusLevel = document.getElementById("statusLevel");
+    const statusQuestion = document.getElementById("statusQuestion");
+    const statusScore = document.getElementById("statusScore");
+    const statusBank = document.getElementById("statusBank");
+
+    const scenarioTextEl = document.getElementById("scenarioText");
+    const starterWrapper = document.getElementById("starterWrapper");
+    const starterCodeEl = document.getElementById("starterCode");
+    const studentCodeEl = document.getElementById("studentCode");
+    const feedbackEl = document.getElementById("feedback");
+    const solutionWrapper = document.getElementById("solutionWrapper");
+    const solutionCodeEl = document.getElementById("solutionCode");
+
+    const btnCheck = document.getElementById("btnCheck");
+    const btnShow = document.getElementById("btnShow");
+    const btnNext = document.getElementById("btnNext");
+    const btnNew10 = document.getElementById("btnNew10");
+
+    // ===== Helpers =====
+    function normalizeCode(code) {
+      // Lowercase, trim each line, drop blanks
+      return code
+        .replace(/\r/g, "")
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line.length > 0)
+        .join("\n")
+        .trim()
+        .toLowerCase();
+    }
+
+    function pickRandomSessionIndices(bankLength) {
+      const indices = Array.from({ length: bankLength }, (_, i) => i);
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      return indices.slice(0, Math.min(QUESTIONS_PER_SESSION, bankLength));
+    }
+
+    function updateStatusBar() {
+      statusLevel.textContent = currentLevel;
+      statusQuestion.textContent = sessionIndices.length === 0 ? 0 : (sessionPosition + 1);
+      statusScore.textContent = score;
+      statusBank.textContent = fullBank.length;
+    }
+
+    function showFeedback(message, type) {
+      feedbackEl.textContent = message;
+      feedbackEl.className = "feedback " + type;
+      feedbackEl.style.display = "block";
+    }
+
+    function clearFeedbackAndSolution() {
+      feedbackEl.style.display = "none";
+      solutionWrapper.style.display = "none";
+      solutionCodeEl.textContent = "";
+    }
+
+    function loadCurrentQuestion() {
+      if (sessionIndices.length === 0) {
+        scenarioTextEl.textContent = "No scenarios found for this level. Please check the JSON bank.";
+        starterWrapper.style.display = "none";
+        studentCodeEl.value = "";
+        return;
+      }
+      const idx = sessionIndices[sessionPosition];
+      const q = fullBank[idx];
+
+      scenarioTextEl.textContent = q.scenario || "(No scenario text)";
+      if (q.starter_code && q.starter_code.trim().length > 0) {
+        starterCodeEl.textContent = q.starter_code.replace(/\\n/g, "\n");
+        starterWrapper.style.display = "block";
+      } else {
+        starterWrapper.style.display = "none";
+        starterCodeEl.textContent = "";
+      }
+
+      studentCodeEl.value = "";
+      clearFeedbackAndSolution();
+      hasAnsweredCurrent = false;
+      updateStatusBar();
+    }
+
+    // ===== Core actions (JSON-based) =====
+    async function loadLevel(levelName, fileName) {
+      currentLevel = levelName;
+      currentFile = fileName;
+      fullBank = [];
+      sessionIndices = [];
+      sessionPosition = 0;
+      score = 0;
+      updateStatusBar();
+      scenarioTextEl.textContent = "Loading scenarios for " + levelName + "…";
+      clearFeedbackAndSolution();
+
+      try {
+        const response = await fetch(fileName + "?_=" + Date.now());
+        if (!response.ok) {
+          throw new Error("Could not load JSON (" + response.status + ")");
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error("JSON format error: expected an array of scenarios.");
+        }
+
+        // Expect fields: scenario, starter_code, solution_code
+        fullBank = data.map(item => ({
+          scenario: item.scenario || "",
+          starter_code: item.starter_code || "",
+          solution_code: item.solution_code || ""
+        }));
+
+        if (fullBank.length === 0) {
+          scenarioTextEl.textContent = "No scenarios found in this JSON file.";
+          statusBank.textContent = 0;
+          return;
+        }
+
+        sessionIndices = pickRandomSessionIndices(fullBank.length);
+        sessionPosition = 0;
+        score = 0;
+        updateStatusBar();
+        loadCurrentQuestion();
+        showFeedback("Type your code and click Check Answer.", "info");
+      } catch (err) {
+        scenarioTextEl.textContent = "Error loading JSON: " + err.message;
+        statusBank.textContent = 0;
+      }
+    }
+
+    function checkAnswer() {
+      if (sessionIndices.length === 0) return;
+      const idx = sessionIndices[sessionPosition];
+      const q = fullBank[idx];
+
+      const studentCode = normalizeCode(studentCodeEl.value);
+      const solutionCode = normalizeCode((q.solution_code || "").replace(/\\n/g, "\n"));
+
+      if (!studentCode) {
+        showFeedback("Please type your code before checking.", "info");
+        return;
+      }
+
+      if (solutionCode && studentCode === solutionCode) {
+        if (!hasAnsweredCurrent) {
+          score += 1;
+          hasAnsweredCurrent = true;
+        }
+        updateStatusBar();
+        showFeedback("Correct! Your code matches the reference solution.", "correct");
+      } else {
+        showFeedback("Nice effort! Here is one possible solution.", "incorrect");
+        solutionCodeEl.textContent = (q.solution_code || "").replace(/\\n/g, "\n");
+        solutionWrapper.style.display = "block";
+        hasAnsweredCurrent = true;
+      }
+    }
+
+    function showSolutionOnly() {
+      if (sessionIndices.length === 0) return;
+      const idx = sessionIndices[sessionPosition];
+      const q = fullBank[idx];
+      solutionCodeEl.textContent = (q.solution_code || "").replace(/\\n/g, "\n");
+      solutionWrapper.style.display = "block";
+      showFeedback("Study this solution carefully, then try writing it yourself.", "info");
+      hasAnsweredCurrent = true;
+    }
+
+    function nextQuestion() {
+      if (sessionIndices.length === 0) return;
+      if (sessionPosition < sessionIndices.length - 1) {
+        sessionPosition += 1;
+        loadCurrentQuestion();
+      } else {
+        showFeedback("You have reached the end of this set of " + sessionIndices.length + " questions.", "info");
+      }
+    }
+
+    function newRandomTen() {
+      if (fullBank.length === 0) return;
+      sessionIndices = pickRandomSessionIndices(fullBank.length);
+      sessionPosition = 0;
+      score = 0;
+      loadCurrentQuestion();
+      showFeedback("New random set selected. Your score has been reset.", "info");
+    }
+
+    // ===== Event listeners =====
+    levelButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        levelButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const levelName = btn.getAttribute("data-level");
+        const fileName = btn.getAttribute("data-file");
+        loadLevel(levelName, fileName);
+      });
+    });
+
+    btnCheck.addEventListener("click", checkAnswer);
+    btnShow.addEventListener("click", showSolutionOnly);
+    btnNext.addEventListener("click", nextQuestion);
+    btnNew10.addEventListener("click", newRandomTen);
+
+    // Allow Ctrl+Enter / Cmd+Enter to check answer quickly
+    studentCodeEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        checkAnswer();
+      }
+    });
+
+    // ===== Initial load: active button's level + file =====
+    const initialBtn = document.querySelector(".level-button.active");
+    if (initialBtn) {
+      currentLevel = initialBtn.getAttribute("data-level");
+      currentFile = initialBtn.getAttribute("data-file");
+      loadLevel(currentLevel, currentFile);
+    }
+  </script>
+</body>
+</html>
